@@ -55,6 +55,7 @@
   "files": [
     "src/",
     "dist/",
+    ".babelrc",
     "rollup.config.js"
   ]
 }
