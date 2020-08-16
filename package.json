@@ -53,6 +53,7 @@
     "rollup-plugin-url": "^2.2.2"
   },
   "files": [
-    "dist"
+    "dist",
+    "rollup.config.js"
   ]
 }
