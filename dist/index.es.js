@@ -1,6 +1,156 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () { }));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+      result;
+
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
 /*eslint-disable*/
 var libpannellum = (function (window, document, undefined$1) {
   if (!window || !document) return;
@@ -66,7 +216,9 @@ var libpannellum = (function (window, document, undefined$1) {
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
         if (program.texture) gl.deleteTexture(program.texture);
-        if (program.nodeCache) for (var i = 0; i < program.nodeCache.length; i++) gl.deleteTexture(program.nodeCache[i].texture);
+        if (program.nodeCache) for (var i = 0; i < program.nodeCache.length; i++) {
+          gl.deleteTexture(program.nodeCache[i].texture);
+        }
         gl.deleteProgram(program);
         program = undefined$1;
       }
@@ -152,7 +304,7 @@ var libpannellum = (function (window, document, undefined$1) {
         var sides = ['f', 'r', 'b', 'l', 'u', 'd'];
         var loaded = 0;
 
-        var onLoad = function () {
+        var onLoad = function onLoad() {
           // Draw image on canvas
           var faceCanvas = document.createElement('canvas');
           faceCanvas.className = 'pnlm-face pnlm-' + sides[this.side] + 'face';
@@ -216,7 +368,7 @@ var libpannellum = (function (window, document, undefined$1) {
           incLoaded.call(this);
         };
 
-        var incLoaded = function () {
+        var incLoaded = function incLoaded() {
           if (this.width > 0) {
             if (fallbackImgSize === undefined$1) fallbackImgSize = this.width;
             if (fallbackImgSize != this.width) console.log('Fallback faces have inconsistent widths: ' + fallbackImgSize + ' vs. ' + this.width);
@@ -546,26 +698,26 @@ var libpannellum = (function (window, document, undefined$1) {
 
     this.render = function (pitch, yaw, hfov, params) {
       var focal,
-          i,
-          s,
-          roll = 0;
+        i,
+        s,
+        roll = 0;
       if (params === undefined$1) params = {};
       if (params.roll) roll = params.roll; // Apply pitch and roll transformation if applicable
 
       if (pose !== undefined$1) {
         var horizonPitch = pose[0],
-            horizonRoll = pose[1]; // Calculate new pitch and yaw
+          horizonRoll = pose[1]; // Calculate new pitch and yaw
 
         var orig_pitch = pitch,
-            orig_yaw = yaw,
-            x = Math.cos(horizonRoll) * Math.sin(pitch) * Math.sin(horizonPitch) + Math.cos(pitch) * (Math.cos(horizonPitch) * Math.cos(yaw) + Math.sin(horizonRoll) * Math.sin(horizonPitch) * Math.sin(yaw)),
-            y = -Math.sin(pitch) * Math.sin(horizonRoll) + Math.cos(pitch) * Math.cos(horizonRoll) * Math.sin(yaw),
-            z = Math.cos(horizonRoll) * Math.cos(horizonPitch) * Math.sin(pitch) + Math.cos(pitch) * (-Math.cos(yaw) * Math.sin(horizonPitch) + Math.cos(horizonPitch) * Math.sin(horizonRoll) * Math.sin(yaw));
+          orig_yaw = yaw,
+          x = Math.cos(horizonRoll) * Math.sin(pitch) * Math.sin(horizonPitch) + Math.cos(pitch) * (Math.cos(horizonPitch) * Math.cos(yaw) + Math.sin(horizonRoll) * Math.sin(horizonPitch) * Math.sin(yaw)),
+          y = -Math.sin(pitch) * Math.sin(horizonRoll) + Math.cos(pitch) * Math.cos(horizonRoll) * Math.sin(yaw),
+          z = Math.cos(horizonRoll) * Math.cos(horizonPitch) * Math.sin(pitch) + Math.cos(pitch) * (-Math.cos(yaw) * Math.sin(horizonPitch) + Math.cos(horizonPitch) * Math.sin(horizonRoll) * Math.sin(yaw));
         pitch = Math.asin(Math.max(Math.min(z, 1), -1));
         yaw = Math.atan2(y, x); // Calculate roll
 
         var v = [Math.cos(orig_pitch) * (Math.sin(horizonRoll) * Math.sin(horizonPitch) * Math.cos(orig_yaw) - Math.cos(horizonPitch) * Math.sin(orig_yaw)), Math.cos(orig_pitch) * Math.cos(horizonRoll) * Math.cos(orig_yaw), Math.cos(orig_pitch) * (Math.cos(horizonPitch) * Math.sin(horizonRoll) * Math.cos(orig_yaw) + Math.sin(orig_yaw) * Math.sin(horizonPitch))],
-            w = [-Math.cos(pitch) * Math.sin(yaw), Math.cos(pitch) * Math.cos(yaw)];
+          w = [-Math.cos(pitch) * Math.sin(yaw), Math.cos(pitch) * Math.cos(yaw)];
         var roll_adj = Math.acos(Math.max(Math.min((v[0] * w[0] + v[1] * w[1]) / (Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]) * Math.sqrt(w[0] * w[0] + w[1] * w[1])), 1), -1));
         if (v[2] < 0) roll_adj = 2 * Math.PI - roll_adj;
         roll += roll_adj;
@@ -882,11 +1034,11 @@ var libpannellum = (function (window, document, undefined$1) {
           var children = [];
           var vtmp, ntmp;
           var f1 = f,
-              f2 = f,
-              f3 = f,
-              i1 = i,
-              i2 = i,
-              i3 = i; // Handle non-symmetric tiles
+            f2 = f,
+            f3 = f,
+            i1 = i,
+            i2 = i,
+            i3 = i; // Handle non-symmetric tiles
 
           if (lastTileSize < image.tileResolution) {
             if (node.x == numTiles && node.y != numTiles) {
@@ -968,11 +1120,11 @@ var libpannellum = (function (window, document, undefined$1) {
 
     function createCube() {
       return [-1, 1, -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, // Front face
-      1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, // Back face
+        1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, // Back face
       -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, // Up face
       -1, -1, -1, 1, -1, -1, 1, -1, 1, -1, -1, 1, // Down face
       -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1, // Left face
-      1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1 // Right face
+        1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1 // Right face
       ];
     }
     /**
@@ -1081,7 +1233,7 @@ var libpannellum = (function (window, document, undefined$1) {
         this.image = new Image();
         this.image.crossOrigin = crossOrigin ? crossOrigin : 'anonymous';
 
-        var loadFn = function () {
+        var loadFn = function loadFn() {
           if (self.image.width > 0 && self.image.height > 0) {
             // ignore missing tile to supporting partial image
             processLoadedTexture(self.image, self.texture);
@@ -1117,12 +1269,14 @@ var libpannellum = (function (window, document, undefined$1) {
         } else textureImageCache[cacheTop++] = til;
       }
 
-      for (var i = 0; i < cacheTop; i++) textureImageCache[i] = new TextureImageLoader();
+      for (var i = 0; i < cacheTop; i++) {
+        textureImageCache[i] = new TextureImageLoader();
+      }
 
       return function (node, src, callback, _crossOrigin) {
         crossOrigin = _crossOrigin;
         var texture = gl.createTexture();
-        if (cacheTop) textureImageCache[--cacheTop].loadTexture(src, texture, callback);else pendingTextureRequests.push(new PendingTextureRequest(node, src, texture, callback));
+        if (cacheTop) textureImageCache[--cacheTop].loadTexture(src, texture, callback); else pendingTextureRequests.push(new PendingTextureRequest(node, src, texture, callback));
         return texture;
       };
     }();
@@ -1243,36 +1397,36 @@ var libpannellum = (function (window, document, undefined$1) {
 
 
   var v = ['attribute vec2 a_texCoord;', 'varying vec2 v_texCoord;', 'void main() {', // Set position
-  'gl_Position = vec4(a_texCoord, 0.0, 1.0);', // Pass the coordinates to the fragment shader
-  'v_texCoord = a_texCoord;', '}'].join(''); // Vertex shader for multires
+    'gl_Position = vec4(a_texCoord, 0.0, 1.0);', // Pass the coordinates to the fragment shader
+    'v_texCoord = a_texCoord;', '}'].join(''); // Vertex shader for multires
 
   var vMulti = ['attribute vec3 a_vertCoord;', 'attribute vec2 a_texCoord;', 'uniform mat4 u_cubeMatrix;', 'uniform mat4 u_perspMatrix;', 'varying mediump vec2 v_texCoord;', 'void main(void) {', // Set position
-  'gl_Position = u_perspMatrix * u_cubeMatrix * vec4(a_vertCoord, 1.0);', // Pass the coordinates to the fragment shader
-  'v_texCoord = a_texCoord;', '}'].join(''); // Fragment shader
+    'gl_Position = u_perspMatrix * u_cubeMatrix * vec4(a_vertCoord, 1.0);', // Pass the coordinates to the fragment shader
+    'v_texCoord = a_texCoord;', '}'].join(''); // Fragment shader
 
   var fragEquiCubeBase = ['precision highp float;', // mediump looks bad on some mobile devices
-  'uniform float u_aspectRatio;', 'uniform float u_psi;', 'uniform float u_theta;', 'uniform float u_f;', 'uniform float u_h;', 'uniform float u_v;', 'uniform float u_vo;', 'uniform float u_rot;', 'const float PI = 3.14159265358979323846264;', // Texture
-  'uniform sampler2D u_image0;', 'uniform sampler2D u_image1;', 'uniform bool u_splitImage;', 'uniform samplerCube u_imageCube;', // Coordinates passed in from vertex shader
-  'varying vec2 v_texCoord;', // Background color (display for partial panoramas)
-  'uniform vec4 u_backgroundColor;', 'void main() {', // Map canvas/camera to sphere
-  'float x = v_texCoord.x * u_aspectRatio;', 'float y = v_texCoord.y;', 'float sinrot = sin(u_rot);', 'float cosrot = cos(u_rot);', 'float rot_x = x * cosrot - y * sinrot;', 'float rot_y = x * sinrot + y * cosrot;', 'float sintheta = sin(u_theta);', 'float costheta = cos(u_theta);', 'float a = u_f * costheta - rot_y * sintheta;', 'float root = sqrt(rot_x * rot_x + a * a);', 'float lambda = atan(rot_x / root, a / root) + u_psi;', 'float phi = atan((rot_y * costheta + u_f * sintheta) / root);'].join('\n'); // Fragment shader
+    'uniform float u_aspectRatio;', 'uniform float u_psi;', 'uniform float u_theta;', 'uniform float u_f;', 'uniform float u_h;', 'uniform float u_v;', 'uniform float u_vo;', 'uniform float u_rot;', 'const float PI = 3.14159265358979323846264;', // Texture
+    'uniform sampler2D u_image0;', 'uniform sampler2D u_image1;', 'uniform bool u_splitImage;', 'uniform samplerCube u_imageCube;', // Coordinates passed in from vertex shader
+    'varying vec2 v_texCoord;', // Background color (display for partial panoramas)
+    'uniform vec4 u_backgroundColor;', 'void main() {', // Map canvas/camera to sphere
+    'float x = v_texCoord.x * u_aspectRatio;', 'float y = v_texCoord.y;', 'float sinrot = sin(u_rot);', 'float cosrot = cos(u_rot);', 'float rot_x = x * cosrot - y * sinrot;', 'float rot_y = x * sinrot + y * cosrot;', 'float sintheta = sin(u_theta);', 'float costheta = cos(u_theta);', 'float a = u_f * costheta - rot_y * sintheta;', 'float root = sqrt(rot_x * rot_x + a * a);', 'float lambda = atan(rot_x / root, a / root) + u_psi;', 'float phi = atan((rot_y * costheta + u_f * sintheta) / root);'].join('\n'); // Fragment shader
 
   var fragCube = fragEquiCubeBase + [// Look up color from texture
-  'float cosphi = cos(phi);', 'gl_FragColor = textureCube(u_imageCube, vec3(cosphi*sin(lambda), sin(phi), cosphi*cos(lambda)));', '}'].join('\n'); // Fragment shader
+    'float cosphi = cos(phi);', 'gl_FragColor = textureCube(u_imageCube, vec3(cosphi*sin(lambda), sin(phi), cosphi*cos(lambda)));', '}'].join('\n'); // Fragment shader
 
   var fragEquirectangular = fragEquiCubeBase + [// Wrap image
-  'lambda = mod(lambda + PI, PI * 2.0) - PI;', // Map texture to sphere
-  'vec2 coord = vec2(lambda / PI, phi / (PI / 2.0));', // Look up color from texture
-  // Map from [-1,1] to [0,1] and flip y-axis
-  'if(coord.x < -u_h || coord.x > u_h || coord.y < -u_v + u_vo || coord.y > u_v + u_vo)', 'gl_FragColor = u_backgroundColor;', 'else {', 'if(u_splitImage) {', // Image was split into two textures to work around texture size limits
-  'if(coord.x < 0.0)', 'gl_FragColor = texture2D(u_image0, vec2((coord.x + u_h) / u_h, (-coord.y + u_v + u_vo) / (u_v * 2.0)));', 'else', 'gl_FragColor = texture2D(u_image1, vec2((coord.x + u_h) / u_h - 1.0, (-coord.y + u_v + u_vo) / (u_v * 2.0)));', '} else {', 'gl_FragColor = texture2D(u_image0, vec2((coord.x + u_h) / (u_h * 2.0), (-coord.y + u_v + u_vo) / (u_v * 2.0)));', '}', '}', '}'].join('\n'); // Fragment shader
+    'lambda = mod(lambda + PI, PI * 2.0) - PI;', // Map texture to sphere
+    'vec2 coord = vec2(lambda / PI, phi / (PI / 2.0));', // Look up color from texture
+    // Map from [-1,1] to [0,1] and flip y-axis
+    'if(coord.x < -u_h || coord.x > u_h || coord.y < -u_v + u_vo || coord.y > u_v + u_vo)', 'gl_FragColor = u_backgroundColor;', 'else {', 'if(u_splitImage) {', // Image was split into two textures to work around texture size limits
+    'if(coord.x < 0.0)', 'gl_FragColor = texture2D(u_image0, vec2((coord.x + u_h) / u_h, (-coord.y + u_v + u_vo) / (u_v * 2.0)));', 'else', 'gl_FragColor = texture2D(u_image1, vec2((coord.x + u_h) / u_h - 1.0, (-coord.y + u_v + u_vo) / (u_v * 2.0)));', '} else {', 'gl_FragColor = texture2D(u_image0, vec2((coord.x + u_h) / (u_h * 2.0), (-coord.y + u_v + u_vo) / (u_v * 2.0)));', '}', '}', '}'].join('\n'); // Fragment shader
 
   var fragMulti = ['varying mediump vec2 v_texCoord;', 'uniform sampler2D u_sampler;', //'uniform mediump vec4 u_color;',
-  'void main(void) {', // Look up color from texture
-  'gl_FragColor = texture2D(u_sampler, v_texCoord);', //    'gl_FragColor = u_color;',
-  '}'].join('');
+    'void main(void) {', // Look up color from texture
+    'gl_FragColor = texture2D(u_sampler, v_texCoord);', //    'gl_FragColor = u_color;',
+    '}'].join('');
   return {
-    renderer: function (container, image, imagetype, dynamic) {
+    renderer: function renderer(container, image, imagetype, dynamic) {
       return new Renderer(container, image, imagetype, dynamic);
     }
   };
@@ -1284,42 +1438,42 @@ var pannellum = (function (window, document, undefined$1) {
 
 
     var config,
-        renderer,
-        preview,
-        isUserInteracting = false,
-        latestInteraction = Date.now(),
-        onPointerDownPointerX = 0,
-        onPointerDownPointerY = 0,
-        onPointerDownPointerDist = -1,
-        onPointerDownYaw = 0,
-        onPointerDownPitch = 0,
-        keysDown = new Array(10),
-        fullscreenActive = false,
-        loaded,
-        error = false,
-        listenersAdded = false,
-        panoImage,
-        prevTime,
-        speed = {
-      'yaw': 0,
-      'pitch': 0,
-      'hfov': 0
-    },
-        animating = false,
-        orientation = false,
-        orientationYawOffset = 0,
-        autoRotateStart,
-        autoRotateSpeed = 0,
-        origHfov,
-        origPitch,
-        animatedMove = {},
-        externalEventListeners = {},
-        specifiedPhotoSphereExcludes = [],
-        update = false,
-        // Should we update when still to render dynamic content
-    eps = 1e-6,
-        hotspotsCreated = false,
-        destroyed = false;
+      renderer,
+      preview,
+      isUserInteracting = false,
+      latestInteraction = Date.now(),
+      onPointerDownPointerX = 0,
+      onPointerDownPointerY = 0,
+      onPointerDownPointerDist = -1,
+      onPointerDownYaw = 0,
+      onPointerDownPitch = 0,
+      keysDown = new Array(10),
+      fullscreenActive = false,
+      loaded,
+      error = false,
+      listenersAdded = false,
+      panoImage,
+      prevTime,
+      speed = {
+        'yaw': 0,
+        'pitch': 0,
+        'hfov': 0
+      },
+      animating = false,
+      orientation = false,
+      orientationYawOffset = 0,
+      autoRotateStart,
+      autoRotateSpeed = 0,
+      origHfov,
+      origPitch,
+      animatedMove = {},
+      externalEventListeners = {},
+      specifiedPhotoSphereExcludes = [],
+      update = false,
+      // Should we update when still to render dynamic content
+      eps = 1e-6,
+      hotspotsCreated = false,
+      destroyed = false;
     var defaultConfig = {
       hfov: 100,
       minHfov: 50,
@@ -1475,7 +1629,7 @@ var pannellum = (function (window, document, undefined$1) {
 
     controls.orientation = document.createElement('div');
     controls.orientation.addEventListener('click', function (e) {
-      if (orientation) stopOrientation();else startOrientation();
+      if (orientation) stopOrientation(); else startOrientation();
     });
     controls.orientation.addEventListener('mousedown', function (e) {
       e.stopPropagation();
@@ -1506,9 +1660,9 @@ var pannellum = (function (window, document, undefined$1) {
     if (initialConfig.firstScene) {
       // Activate first scene if specified in URL
       mergeConfig(initialConfig.firstScene);
-    } else if (initialConfig.default && initialConfig.default.firstScene) {
+    } else if (initialConfig["default"] && initialConfig["default"].firstScene) {
       // Activate first scene if specified in file
-      mergeConfig(initialConfig.default.firstScene);
+      mergeConfig(initialConfig["default"].firstScene);
     } else {
       mergeConfig(null);
     }
@@ -1577,7 +1731,7 @@ var pannellum = (function (window, document, undefined$1) {
         // Quick loading counter for synchronous loading
         var itemsToLoad = 6;
 
-        var onLoad = function () {
+        var onLoad = function onLoad() {
           itemsToLoad--;
 
           if (itemsToLoad === 0) {
@@ -1585,7 +1739,7 @@ var pannellum = (function (window, document, undefined$1) {
           }
         };
 
-        var onError = function (e) {
+        var onError = function onError(e) {
           var a = document.createElement('a');
           a.href = e.target.src;
           a.innerHTML = a.href;
@@ -1795,7 +1949,7 @@ var pannellum = (function (window, document, undefined$1) {
         if (start > -1 && config.ignoreGPanoXMP !== true) {
           var xmpData = img.substring(start, img.indexOf('</x:xmpmeta>') + 12); // Extract the requested tag from the XMP data
 
-          var getTag = function (tag) {
+          var getTag = function getTag(tag) {
             var result;
 
             if (xmpData.indexOf(tag + '="') >= 0) {
@@ -1851,7 +2005,7 @@ var pannellum = (function (window, document, undefined$1) {
 
         panoImage.src = window.URL.createObjectURL(image);
       });
-      if (reader.readAsBinaryString !== undefined$1) reader.readAsBinaryString(image);else reader.readAsText(image);
+      if (reader.readAsBinaryString !== undefined$1) reader.readAsBinaryString(image); else reader.readAsText(image);
     }
     /**
      * Displays an error message.
@@ -1996,7 +2150,7 @@ var pannellum = (function (window, document, undefined$1) {
       var pos = mousePosition(event);
       var canvas = renderer.getCanvas();
       var canvasWidth = canvas.clientWidth,
-          canvasHeight = canvas.clientHeight;
+        canvasHeight = canvas.clientHeight;
       var x = pos.x / canvasWidth * 2 - 1;
       var y = (1 - pos.y / canvasHeight * 2) * canvasHeight / canvasWidth;
       var focal = 1 / Math.tan(config.hfov * Math.PI / 360);
@@ -2022,7 +2176,7 @@ var pannellum = (function (window, document, undefined$1) {
         latestInteraction = Date.now();
         var canvas = renderer.getCanvas();
         var canvasWidth = canvas.clientWidth,
-            canvasHeight = canvas.clientHeight;
+          canvasHeight = canvas.clientHeight;
         var pos = mousePosition(event); //TODO: This still isn't quite right
 
         var yaw = (Math.atan(onPointerDownPointerX / canvasWidth * 2 - 1) - Math.atan(pos.x / canvasWidth * 2 - 1)) * 180 / Math.PI * config.hfov / 90 + onPointerDownYaw;
@@ -2166,7 +2320,7 @@ var pannellum = (function (window, document, undefined$1) {
     }
 
     var pointerIDs = [],
-        pointerCoordinates = [];
+      pointerCoordinates = [];
     /**
      * Event handler for touch starts in IE / Edge.
      * @private
@@ -2737,12 +2891,12 @@ var pannellum = (function (window, document, undefined$1) {
         tmpyaw = config.yaw; // Optionally avoid showing background (empty space) on left or right by adapting min/max yaw
 
         var hoffcut = 0,
-            voffcut = 0;
+          voffcut = 0;
 
         if (config.avoidShowingBackground) {
           var hfov2 = config.hfov / 2,
-              vfov2 = Math.atan2(Math.tan(hfov2 / 180 * Math.PI), canvas.width / canvas.height) * 180 / Math.PI,
-              transposed = config.vaov > config.haov;
+            vfov2 = Math.atan2(Math.tan(hfov2 / 180 * Math.PI), canvas.width / canvas.height) * 180 / Math.PI,
+            transposed = config.vaov > config.haov;
 
           if (transposed) {
             voffcut = vfov2 * (1 - Math.min(Math.cos((config.pitch - hfov2) / 180 * Math.PI), Math.cos((config.pitch + hfov2) / 180 * Math.PI)));
@@ -2753,8 +2907,8 @@ var pannellum = (function (window, document, undefined$1) {
 
 
         var yawRange = config.maxYaw - config.minYaw,
-            minYaw = -180,
-            maxYaw = 180;
+          minYaw = -180,
+          maxYaw = 180;
 
         if (yawRange < 360) {
           minYaw = config.minYaw + config.hfov / 2 + hoffcut;
@@ -2788,7 +2942,7 @@ var pannellum = (function (window, document, undefined$1) {
 
         var vfov = 2 * Math.atan(Math.tan(config.hfov / 180 * Math.PI * 0.5) / (canvas.width / canvas.height)) / Math.PI * 180;
         var minPitch = config.minPitch + vfov / 2,
-            maxPitch = config.maxPitch - vfov / 2;
+          maxPitch = config.maxPitch - vfov / 2;
         var pitchRange = config.maxPitch - config.minPitch;
 
         if (pitchRange < vfov) {
@@ -2847,8 +3001,8 @@ var pannellum = (function (window, document, undefined$1) {
 
     Quaternion.prototype.toEulerAngles = function () {
       var phi = Math.atan2(2 * (this.w * this.x + this.y * this.z), 1 - 2 * (this.x * this.x + this.y * this.y)),
-          theta = Math.asin(2 * (this.w * this.y - this.z * this.x)),
-          psi = Math.atan2(2 * (this.w * this.z + this.x * this.y), 1 - 2 * (this.y * this.y + this.z * this.z));
+        theta = Math.asin(2 * (this.w * this.y - this.z * this.x)),
+        psi = Math.atan2(2 * (this.w * this.z + this.x * this.y), 1 - 2 * (this.y * this.y + this.z * this.z));
       return [phi, theta, psi];
     };
     /**
@@ -2864,7 +3018,7 @@ var pannellum = (function (window, document, undefined$1) {
     function taitBryanToQuaternion(alpha, beta, gamma) {
       var r = [beta ? beta * Math.PI / 180 / 2 : 0, gamma ? gamma * Math.PI / 180 / 2 : 0, alpha ? alpha * Math.PI / 180 / 2 : 0];
       var c = [Math.cos(r[0]), Math.cos(r[1]), Math.cos(r[2])],
-          s = [Math.sin(r[0]), Math.sin(r[1]), Math.sin(r[2])];
+        s = [Math.sin(r[0]), Math.sin(r[1]), Math.sin(r[2])];
       return new Quaternion(c[0] * c[1] * c[2] - s[0] * s[1] * s[2], s[0] * c[1] * c[2] - c[0] * s[1] * s[2], c[0] * s[1] * c[2] + s[0] * c[1] * s[2], c[0] * c[1] * s[2] + s[0] * s[1] * c[2]);
     }
     /**
@@ -3001,14 +3155,14 @@ var pannellum = (function (window, document, undefined$1) {
       hs.yaw = Number(hs.yaw) || 0;
       var div = document.createElement('div');
       div.className = 'pnlm-hotspot-base';
-      if (hs.cssClass) div.className += ' ' + hs.cssClass;else div.className += ' pnlm-hotspot pnlm-sprite pnlm-' + escapeHTML(hs.type);
+      if (hs.cssClass) div.className += ' ' + hs.cssClass; else div.className += ' pnlm-hotspot pnlm-sprite pnlm-' + escapeHTML(hs.type);
       var span = document.createElement('span');
       if (hs.text) span.innerHTML = escapeHTML(hs.text);
       var a;
 
       if (hs.video) {
         var video = document.createElement('video'),
-            vidp = hs.video;
+          vidp = hs.video;
         if (config.basePath && !absoluteURL(vidp)) vidp = config.basePath + vidp;
         video.src = sanitizeURL(vidp);
         video.controls = true;
@@ -3140,27 +3294,27 @@ var pannellum = (function (window, document, undefined$1) {
 
     function renderHotSpot(hs) {
       var hsPitchSin = Math.sin(hs.pitch * Math.PI / 180),
-          hsPitchCos = Math.cos(hs.pitch * Math.PI / 180),
-          configPitchSin = Math.sin(config.pitch * Math.PI / 180),
-          configPitchCos = Math.cos(config.pitch * Math.PI / 180),
-          yawCos = Math.cos((-hs.yaw + config.yaw) * Math.PI / 180);
+        hsPitchCos = Math.cos(hs.pitch * Math.PI / 180),
+        configPitchSin = Math.sin(config.pitch * Math.PI / 180),
+        configPitchCos = Math.cos(config.pitch * Math.PI / 180),
+        yawCos = Math.cos((-hs.yaw + config.yaw) * Math.PI / 180);
       var z = hsPitchSin * configPitchSin + hsPitchCos * yawCos * configPitchCos;
 
       if (hs.yaw <= 90 && hs.yaw > -90 && z <= 0 || (hs.yaw > 90 || hs.yaw <= -90) && z <= 0) {
         hs.div.style.visibility = 'hidden';
       } else {
         var yawSin = Math.sin((-hs.yaw + config.yaw) * Math.PI / 180),
-            hfovTan = Math.tan(config.hfov * Math.PI / 360);
+          hfovTan = Math.tan(config.hfov * Math.PI / 360);
         hs.div.style.visibility = 'visible'; // Subpixel rendering doesn't work in Firefox
         // https://bugzilla.mozilla.org/show_bug.cgi?id=739176
 
         var canvas = renderer.getCanvas(),
-            canvasWidth = canvas.clientWidth,
-            canvasHeight = canvas.clientHeight;
+          canvasWidth = canvas.clientWidth,
+          canvasHeight = canvas.clientHeight;
         var coord = [-canvasWidth / hfovTan * yawSin * hsPitchCos / z / 2, -canvasWidth / hfovTan * (hsPitchSin * configPitchCos - hsPitchCos * yawCos * configPitchSin) / z / 2]; // Apply roll
 
         var rollSin = Math.sin(config.roll * Math.PI / 180),
-            rollCos = Math.cos(config.roll * Math.PI / 180);
+          rollCos = Math.cos(config.roll * Math.PI / 180);
         coord = [coord[0] * rollCos - coord[1] * rollSin, coord[0] * rollSin + coord[1] * rollCos]; // Apply transform
 
         coord[0] += (canvasWidth - hs.div.offsetWidth) / 2;
@@ -3205,16 +3359,16 @@ var pannellum = (function (window, document, undefined$1) {
       } // Merge default scene config
 
 
-      for (k in initialConfig.default) {
-        if (initialConfig.default.hasOwnProperty(k)) {
+      for (k in initialConfig["default"]) {
+        if (initialConfig["default"].hasOwnProperty(k)) {
           if (k == 'strings') {
-            for (s in initialConfig.default.strings) {
-              if (initialConfig.default.strings.hasOwnProperty(s)) {
-                config.strings[s] = escapeHTML(initialConfig.default.strings[s]);
+            for (s in initialConfig["default"].strings) {
+              if (initialConfig["default"].strings.hasOwnProperty(s)) {
+                config.strings[s] = escapeHTML(initialConfig["default"].strings[s]);
               }
             }
           } else {
-            config[k] = initialConfig.default[k];
+            config[k] = initialConfig["default"][k];
 
             if (photoSphereExcludes.indexOf(k) >= 0) {
               specifiedPhotoSphereExcludes.push(k);
@@ -3290,7 +3444,7 @@ var pannellum = (function (window, document, undefined$1) {
 
 
       var title = config.title,
-          author = config.author;
+        author = config.author;
 
       if (isPreview) {
         if ('previewTitle' in config) config.title = config.previewTitle;
@@ -3381,7 +3535,7 @@ var pannellum = (function (window, document, undefined$1) {
               break;
 
             case 'hotSpotDebug':
-              if (config[key]) hotSpotDebugIndicator.style.display = 'block';else hotSpotDebugIndicator.style.display = 'none';
+              if (config[key]) hotSpotDebugIndicator.style.display = 'block'; else hotSpotDebugIndicator.style.display = 'none';
               break;
 
             case 'showControls':
@@ -3405,8 +3559,8 @@ var pannellum = (function (window, document, undefined$1) {
 
       if (isPreview) {
         // Restore original values if changed for preview
-        if (title) config.title = title;else delete config.title;
-        if (author) config.author = author;else delete config.author;
+        if (title) config.title = title; else delete config.title;
+        if (author) config.author = author; else delete config.author;
       }
     }
     /**
@@ -3674,11 +3828,11 @@ var pannellum = (function (window, document, undefined$1) {
       orientation = 1; // Fix for IOS 13 where the user needs to perform an action i.e click. Then we need to ask permission
 
       if (DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') {
-        DeviceOrientationEvent.requestPermission().then(response => {
+        DeviceOrientationEvent.requestPermission().then(function (response) {
           if (response === 'granted') {
             window.addEventListener('deviceorientation', orientationListener);
           }
-        }).catch(console.error);
+        })["catch"](console.error);
       } else {
         window.addEventListener('deviceorientation', orientationListener);
       } // window.addEventListener('deviceorientation', orientationListener);
@@ -3849,7 +4003,7 @@ var pannellum = (function (window, document, undefined$1) {
 
       if (animated) {
         // Animate in shortest direction
-        if (config.yaw - yaw > 180) yaw += 360;else if (yaw - config.yaw > 180) yaw -= 360;
+        if (config.yaw - yaw > 180) yaw += 360; else if (yaw - config.yaw > 180) yaw -= 360;
         animatedMove.yaw = {
           'startTime': Date.now(),
           'startPosition': config.yaw,
@@ -4152,7 +4306,7 @@ var pannellum = (function (window, document, undefined$1) {
 
     this.setUpdate = function (bool) {
       update = bool === true;
-      if (renderer === undefined$1) onImageLoad();else animateInit();
+      if (renderer === undefined$1) onImageLoad(); else animateInit();
       return this;
     };
     /**
@@ -4256,6 +4410,11 @@ var pannellum = (function (window, document, undefined$1) {
     this.getContainer = function () {
       return container;
     };
+
+    this.destroy = function () {
+      return destroy;
+    };
+
     /**
      * Add a new hot spot.
      * @memberof Viewer
@@ -4315,7 +4474,9 @@ var pannellum = (function (window, document, undefined$1) {
             // Delete hot spot DOM elements
             var current = config.hotSpots[i].div;
 
-            while (current.parentNode != renderContainer) current = current.parentNode;
+            while (current.parentNode != renderContainer) {
+              current = current.parentNode;
+            }
 
             renderContainer.removeChild(current);
             delete config.hotSpots[i].div; // Remove hot spot from configuration
@@ -4501,13 +4662,13 @@ var pannellum = (function (window, document, undefined$1) {
   }
 
   return {
-    viewer: function (container, config) {
+    viewer: function viewer(container, config) {
       return new Viewer(container, config);
     }
   };
 })(typeof window === "undefined" ? null : window, typeof document === "undefined" ? null : document);
 
-const uiText = {
+var uiText = {
   loadButtonLabel: 'Click to<br>Load<br>Panorama',
   loadingLabel: 'Loading...',
   bylineLabel: 'by %s',
@@ -4519,17 +4680,21 @@ const uiText = {
   textureSizeError: "This panorama is too big for your device! It's %spx wide, but your device only supports images up to %spx wide. Try another device. (If you're the author, try scaling down the image.)",
   unknownError: 'Unknown error. Check developer console.'
 };
-const style = {
+var style = {
   width: '600px',
   height: '400px',
   background: '#000000'
 };
 
-function myPromise(condition, ...args) {
-  const promise = new Promise((resolve, reject) => {
+function myPromise(condition) {
+  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+
+  var promise = new Promise(function (resolve, reject) {
     if (condition) {
       if (args !== []) {
-        resolve(...args);
+        resolve.apply(void 0, args);
       } else {
         reject('Argruments cannot be empty');
       }
@@ -4541,13 +4706,13 @@ function myPromise(condition, ...args) {
 }
 
 var constants = {
-  uiText,
-  style,
-  myPromise
+  uiText: uiText,
+  style: style,
+  myPromise: myPromise
 };
 
 function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
+  if (ref === void 0) ref = {};
   var insertAt = ref.insertAt;
 
   if (!css || typeof document === 'undefined') { return; }
@@ -4573,313 +4738,370 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "\n\n/* Pannellum 2.4.1, https://github.com/mpetroff/pannellum */\n\n.pnlm-container {\n  margin: 0;\n  padding: 0;\n  overflow: hidden;\n  position: relative;\n  cursor: default;\n  width: 100%;\n  height: 100%;\n  font-family: Helvetica, \"Nimbus Sans L\", \"Liberation Sans\", Arial, sans-serif;\n  background: #f4f4f4 url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2267%22%20height%3D%22100%22%20viewBox%3D%220%200%2067%20100%22%3E%0A%3Cpath%20stroke%3D%22%23ccc%22%20fill%3D%22none%22%20d%3D%22M33.5%2C50%2C0%2C63%2C33.5%2C75%2C67%2C63%2C33.5%2C50m-33.5-50%2C67%2C25m-0.5%2C0%2C0%2C75m-66.5-75%2C67-25m-33.5%2C75%2C0%2C25m0-100%2C0%2C50%22%2F%3E%0A%3C%2Fsvg%3E%0A') repeat;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -o-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  outline: 0;\n  line-height: 1.4;\n  contain: content;\n}\n\n.pnlm-container * {\n  box-sizing: content-box;\n}\n\n.pnlm-ui {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n\n.pnlm-grab {\n  cursor: grab;\n  cursor: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2226%22%20width%3D%2226%22%3E%0A%3Cpath%20stroke%3D%22%23000%22%20stroke-width%3D%221px%22%20fill%3D%22%23fff%22%20d%3D%22m15.3%2020.5s6.38-6.73%204.64-8.24-3.47%201.01-3.47%201.01%203.61-5.72%201.41-6.49c-2.2-0.769-3.33%204.36-3.33%204.36s0.873-5.76-1.06-5.76-1.58%205.39-1.58%205.39-0.574-4.59-2.18-4.12c-1.61%200.468-0.572%205.51-0.572%205.51s-1.58-4.89-2.93-3.79c-1.35%201.11%200.258%205.25%200.572%206.62%200.836%202.43%202.03%202.94%202.17%205.55%22%2F%3E%0A%3C%2Fsvg%3E%0A') 12 8, default\n}\n\n.pnlm-grabbing {\n  cursor: grabbing;\n  cursor: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2226%22%20width%3D%2226%22%3E%0A%3Cpath%20stroke%3D%22%23000%22%20stroke-width%3D%221px%22%20fill%3D%22%23fff%22%20d%3D%22m15.3%2020.5s5.07-5.29%203.77-6.74c-1.31-1.45-2.53%200.14-2.53%200.14s2.74-3.29%200.535-4.06c-2.2-0.769-2.52%201.3-2.52%201.3s0.81-2.13-1.12-2.13-1.52%201.77-1.52%201.77-0.261-1.59-1.87-1.12c-1.61%200.468-0.874%202.17-0.874%202.17s-0.651-1.55-2-0.445c-1.35%201.11-0.68%202.25-0.365%203.62%200.836%202.43%202.03%202.94%202.17%205.55%22%2F%3E%0A%3C%2Fsvg%3E%0A') 12 8, default\n}\n\n.pnlm-sprite {\n  background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2226%22%20height%3D%22208%22%3E%0A%3Ccircle%20fill-opacity%3D%22.78%22%20cy%3D%22117%22%20cx%3D%2213%22%20r%3D%2211%22%20fill%3D%22%23fff%22%2F%3E%0A%3Ccircle%20fill-opacity%3D%22.78%22%20cy%3D%22143%22%20cx%3D%2213%22%20r%3D%2211%22%20fill%3D%22%23fff%22%2F%3E%0A%3Ccircle%20cy%3D%22169%22%20cx%3D%2213%22%20r%3D%227%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%0A%3Ccircle%20cy%3D%22195%22%20cx%3D%2213%22%20r%3D%227%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%0A%3Ccircle%20cx%3D%2213%22%20cy%3D%22195%22%20r%3D%222.5%22%2F%3E%0A%3Cpath%20d%3D%22m5%2083v6h2v-4h4v-2zm10%200v2h4v4h2v-6zm-5%205v6h6v-6zm-5%205v6h6v-2h-4v-4zm14%200v4h-4v2h6v-6z%22%2F%3E%0A%3Cpath%20d%3D%22m13%20110a7%207%200%200%200%20-7%207%207%207%200%200%200%207%207%207%207%200%200%200%207%20-7%207%207%200%200%200%20-7%20-7zm-1%203h2v2h-2zm0%203h2v5h-2z%22%2F%3E%0A%3Cpath%20d%3D%22m5%2057v6h2v-4h4v-2zm10%200v2h4v4h2v-6zm-10%2010v6h6v-2h-4v-4zm14%200v4h-4v2h6v-6z%22%2F%3E%0A%3Cpath%20d%3D%22m17%2038v2h-8v-2z%22%2F%3E%0A%3Cpath%20d%3D%22m12%209v3h-3v2h3v3h2v-3h3v-2h-3v-3z%22%2F%3E%0A%3Cpath%20d%3D%22m13%20136-6.125%206.125h4.375v7.875h3.5v-7.875h4.375z%22%2F%3E%0A%3Cpath%20d%3D%22m10.428%20173.33v-5.77l5-2.89v5.77zm1-1.73%203-1.73-3.001-1.74z%22%2F%3E%0A%3C%2Fsvg%3E%0A')\n}\n\n.pnlm-container:-moz-full-screen {\n  height: 100% !important;\n  width: 100% !important;\n  position: static !important;\n}\n.pnlm-container:-webkit-full-screen {\n  height: 100% !important;\n  width: 100% !important;\n  position: static !important;\n}\n.pnlm-container:-ms-fullscreen {\n  height: 100% !important;\n  width: 100% !important;\n  position: static !important;\n}\n.pnlm-container:fullscreen {\n  height: 100% !important;\n  width: 100% !important;\n  position: static !important;\n}\n\n.pnlm-render-container {\n  cursor: inherit;\n\n  /* Fix display bug in Safari 7 */\n  position: absolute;\n  height: 100%;\n  width: 100%;\n}\n\n.pnlm-controls {\n  margin-top: 4px;\n  background-color: #fff;\n  border: 1px solid #999;\n  border-color: rgba(0,0,0,0.4);\n  border-radius: 3px;\n  cursor: pointer;\n  z-index: 2;\n  /* Fix Safari fullscreen bug */\n  -webkit-transform: translateZ(9999px);\n  transform: translateZ(9999px);\n}\n\n.pnlm-control:hover {\n  background-color: #f8f8f8;\n}\n\n.pnlm-controls-container {\n  position: absolute;\n  top: 0;\n  left: 4px;\n  z-index: 1;\n}\n\n.pnlm-zoom-controls {\n  width: 26px;\n  height: 52px;\n}\n\n.pnlm-zoom-in {\n  width: 100%;\n  height: 50%;\n  position: absolute;\n  top: 0;\n  border-radius: 3px 3px 0 0;\n}\n\n.pnlm-zoom-out {\n  width: 100%;\n  height: 50%;\n  position: absolute;\n  bottom: 0;\n  background-position: 0 -26px;\n  border-top: 1px solid #ddd;\n  border-top-color: rgba(0,0,0,0.10);\n  border-radius: 0 0 3px 3px;\n}\n\n.pnlm-fullscreen-toggle-button, .pnlm-orientation-button, .pnlm-hot-spot-debug-indicator {\n  width: 26px;\n  height: 26px;\n}\n\n.pnlm-hot-spot-debug-indicator {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 26px;\n  height: 26px;\n  margin: -13px 0 0 -13px;\n  background-color: rgba(255, 255, 255, 0.5);\n  border-radius: 13px;\n  display: none;\n}\n\n.pnlm-orientation-button-inactive {\n  background-position: 0 -156px;\n}\n\n.pnlm-orientation-button-active {\n  background-position: 0 -182px;\n}\n\n.pnlm-fullscreen-toggle-button-inactive {\n  background-position: 0 -52px;\n}\n\n.pnlm-fullscreen-toggle-button-active {\n  background-position: 0 -78px;\n}\n\n.pnlm-panorama-info {\n  position: absolute;\n  bottom: 4px;\n  background-color: rgba(0,0,0,0.7);\n  border-radius: 0 3px 3px 0;\n  padding-right: 10px;\n  color: #fff;\n  text-align: left;\n  display: none;\n  z-index: 2;\n  /* Fix Safari fullscreen bug */\n  -webkit-transform: translateZ(9999px);\n  transform: translateZ(9999px);\n}\n\n.pnlm-title-box {\n  position: relative;\n  font-size: 20px;\n  display: table;\n  padding-left: 5px;\n  margin-bottom: 3px;\n}\n\n.pnlm-author-box {\n  position: relative;\n  font-size: 12px;\n  display: table;\n  padding-left: 5px;\n}\n\n.pnlm-load-box {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 200px;\n  height: 150px;\n  margin: -75px 0 0 -100px;\n  background-color: rgba(0,0,0,0.7);\n  border-radius: 3px;\n  text-align: center;\n  font-size: 20px;\n  display: none;\n  color: #fff;\n}\n\n.pnlm-load-box p {\n  margin: 20px 0;\n}\n\n.pnlm-lbox {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 20px;\n  height: 20px;\n  margin: -10px 0 0 -10px;\n  display: none;\n}\n\n.pnlm-loading {\n  animation-duration: 1.5s;\n  -webkit-animation-duration: 1.5s;\n  animation-name: pnlm-mv;\n  -webkit-animation-name: pnlm-mv;\n  animation-iteration-count: infinite;\n  -webkit-animation-iteration-count: infinite;\n  animation-timing-function: linear;\n  -webkit-animation-timing-function: linear;\n  height: 10px;\n  width: 10px;\n  background-color: #fff;\n  position: relative;\n}\n\n@keyframes pnlm-mv {\n  from {left:0;top:0;}\n  25% {left:10px;top:0;}\n  50% {left:10px;top:10px;}\n  75% {left:0;top:10px;}\n  to {left:0;top:0;}\n}\n\n@-webkit-keyframes pnlm-mv {\n  from {left:0;top:0;}\n  25% {left:10px;top:0;}\n  50% {left:10px;top:10px;}\n  75% {left:0;top:10px;}\n  to {left:0;top:0;}\n}\n\n.pnlm-load-button {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 200px;\n  height: 100px;\n  margin: -50px 0 0 -100px;\n  background-color: rgba(0,0,0,.7);\n  border-radius: 3px;\n  text-align: center;\n  font-size: 20px;\n  display: table;\n  color: #fff;\n  cursor: pointer;\n}\n\n.pnlm-load-button:hover {\n  background-color: rgba(0,0,0,.8);\n}\n\n.pnlm-load-button p {\n  display: table-cell;\n  vertical-align: middle;\n}\n\n.pnlm-info-box {\n  font-size: 15px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 200px;\n  height: 150px;\n  margin: -75px 0 0 -100px;\n  background-color: #000;\n  border-radius: 3px;\n  display: table;\n  text-align: center;\n  color: #fff;\n  table-layout: fixed;\n}\n\n.pnlm-info-box a, .pnlm-author-box a {\n  color: #fff;\n  word-wrap: break-word;\n  overflow-wrap: break-word;\n}\n\n.pnlm-info-box p {\n  display: table-cell;\n  vertical-align: middle;\n  padding: 0 5px 0 5px;\n}\n\n.pnlm-error-msg {\n  display: none;\n}\n\n.pnlm-about-msg {\n  font-size: 11px;\n  line-height: 11px;\n  color: #fff;\n  padding: 5px 8px 5px 8px;\n  background: rgba(0,0,0,0.7);\n  border-radius: 3px;\n  position: absolute;\n  top: 50px;\n  left: 50px;\n  display: none;\n  opacity: 0;\n  -moz-transition: opacity .3s ease-in-out;\n  -webkit-transition: opacity .3s ease-in-out;\n  -o-transition: opacity .3s ease-in-out;\n  -ms-transition: opacity .3s ease-in-out;\n  transition: opacity .3s ease-in-out;\n  z-index: 1;\n}\n\n.pnlm-about-msg a:link, .pnlm-about-msg a:visited {\n  color: #fff;\n}\n\n.pnlm-about-msg a:hover, .pnlm-about-msg a:active {\n  color: #eee;\n}\n\n.pnlm-hotspot-base {\n  position: absolute;\n  visibility: hidden;\n  cursor: default;\n  vertical-align: middle;\n  top: 0;\n  z-index: 1;\n}\n.pnlm-hotspot {\n  height: 26px;\n  width: 26px;\n  border-radius: 13px;\n}\n.pnlm-hotspot:hover {\n  background-color: rgba(255,255,255,0.2);\n}\n.pnlm-hotspot.pnlm-info {\n  background-position: 0 -104px;\n}\n.pnlm-hotspot.pnlm-scene {\n  background-position: 0 -130px;\n}\n\ndiv.pnlm-tooltip span {\n  visibility: hidden;\n  position: absolute;\n  border-radius: 3px;\n  background-color: rgba(0,0,0,0.7);\n  color: #fff;\n  text-align: center;\n  max-width: 200px;\n  padding: 5px 10px;\n  margin-left: -220px;\n  cursor: default;\n}\ndiv.pnlm-tooltip:hover span{\n  visibility: visible;\n}\ndiv.pnlm-tooltip:hover span:after {\n  content: '';\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-width: 10px;\n  border-style: solid;\n  border-color: rgba(0,0,0,0.7) transparent transparent transparent;\n  bottom: -20px;\n  left: -10px;\n  margin: 0 50%;\n}\n\n.pnlm-compass {\n  position: absolute;\n  width: 50px;\n  height: 50px;\n  right: 4px;\n  bottom: 4px;\n  border-radius: 25px;\n  background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2250%22%20width%3D%2250%22%3E%0A%3Cpath%20d%3D%22m24.5078%206-3.2578%2018h7.5l-3.25781-18h-0.984376zm-3.2578%2020%203.2578%2018h0.9844l3.2578-18h-7.5zm1.19531%200.9941h5.10938l-2.5547%2014.1075-2.5547-14.1075z%22%2F%3E%0A%3C%2Fsvg%3E%0A');\n  cursor: default;\n  display: none;\n}\n\n.pnlm-world {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n}\n.pnlm-face {\n  position: absolute;\n  -webkit-transform-origin: 0 0 0;\n  transform-origin: 0 0 0;\n}\n\n.pnlm-dragfix, .pnlm-preview-img {\n  position: absolute;\n  height: 100%;\n  width: 100%;\n}\n\n.pnlm-preview-img {\n  background-size: cover;\n  background-position: center;\n}\n\n.pnlm-lbar {\n  width: 150px;\n  margin: 0 auto;\n  border: #fff 1px solid;\n  height: 6px;\n}\n\n.pnlm-lbar-fill {\n  background: #fff;\n  height: 100%;\n  width: 0;\n}\n\n.pnlm-lmsg {\n  font-size: 12px;\n}\n\n.pnlm-fade-img {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.pnlm-pointer {\n  cursor: pointer;\n}\n";
+var css_248z = "\r\n\r\n/* Pannellum 2.4.1, https://github.com/mpetroff/pannellum */\r\n\r\n.pnlm-container {\r\n  margin: 0;\r\n  padding: 0;\r\n  overflow: hidden;\r\n  position: relative;\r\n  cursor: default;\r\n  width: 100%;\r\n  height: 100%;\r\n  font-family: Helvetica, \"Nimbus Sans L\", \"Liberation Sans\", Arial, sans-serif;\r\n  background: #f4f4f4 url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2267%22%20height%3D%22100%22%20viewBox%3D%220%200%2067%20100%22%3E%0A%3Cpath%20stroke%3D%22%23ccc%22%20fill%3D%22none%22%20d%3D%22M33.5%2C50%2C0%2C63%2C33.5%2C75%2C67%2C63%2C33.5%2C50m-33.5-50%2C67%2C25m-0.5%2C0%2C0%2C75m-66.5-75%2C67-25m-33.5%2C75%2C0%2C25m0-100%2C0%2C50%22%2F%3E%0A%3C%2Fsvg%3E%0A') repeat;\r\n  -webkit-user-select: none;\r\n  -khtml-user-select: none;\r\n  -moz-user-select: none;\r\n  -o-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n  outline: 0;\r\n  line-height: 1.4;\r\n  contain: content;\r\n}\r\n\r\n.pnlm-container * {\r\n  box-sizing: content-box;\r\n}\r\n\r\n.pnlm-ui {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  z-index: 1;\r\n}\r\n\r\n.pnlm-grab {\r\n  cursor: grab;\r\n  cursor: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2226%22%20width%3D%2226%22%3E%0A%3Cpath%20stroke%3D%22%23000%22%20stroke-width%3D%221px%22%20fill%3D%22%23fff%22%20d%3D%22m15.3%2020.5s6.38-6.73%204.64-8.24-3.47%201.01-3.47%201.01%203.61-5.72%201.41-6.49c-2.2-0.769-3.33%204.36-3.33%204.36s0.873-5.76-1.06-5.76-1.58%205.39-1.58%205.39-0.574-4.59-2.18-4.12c-1.61%200.468-0.572%205.51-0.572%205.51s-1.58-4.89-2.93-3.79c-1.35%201.11%200.258%205.25%200.572%206.62%200.836%202.43%202.03%202.94%202.17%205.55%22%2F%3E%0A%3C%2Fsvg%3E%0A') 12 8, default\r\n}\r\n\r\n.pnlm-grabbing {\r\n  cursor: grabbing;\r\n  cursor: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2226%22%20width%3D%2226%22%3E%0A%3Cpath%20stroke%3D%22%23000%22%20stroke-width%3D%221px%22%20fill%3D%22%23fff%22%20d%3D%22m15.3%2020.5s5.07-5.29%203.77-6.74c-1.31-1.45-2.53%200.14-2.53%200.14s2.74-3.29%200.535-4.06c-2.2-0.769-2.52%201.3-2.52%201.3s0.81-2.13-1.12-2.13-1.52%201.77-1.52%201.77-0.261-1.59-1.87-1.12c-1.61%200.468-0.874%202.17-0.874%202.17s-0.651-1.55-2-0.445c-1.35%201.11-0.68%202.25-0.365%203.62%200.836%202.43%202.03%202.94%202.17%205.55%22%2F%3E%0A%3C%2Fsvg%3E%0A') 12 8, default\r\n}\r\n\r\n.pnlm-sprite {\r\n  background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2226%22%20height%3D%22208%22%3E%0A%3Ccircle%20fill-opacity%3D%22.78%22%20cy%3D%22117%22%20cx%3D%2213%22%20r%3D%2211%22%20fill%3D%22%23fff%22%2F%3E%0A%3Ccircle%20fill-opacity%3D%22.78%22%20cy%3D%22143%22%20cx%3D%2213%22%20r%3D%2211%22%20fill%3D%22%23fff%22%2F%3E%0A%3Ccircle%20cy%3D%22169%22%20cx%3D%2213%22%20r%3D%227%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%0A%3Ccircle%20cy%3D%22195%22%20cx%3D%2213%22%20r%3D%227%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%0A%3Ccircle%20cx%3D%2213%22%20cy%3D%22195%22%20r%3D%222.5%22%2F%3E%0A%3Cpath%20d%3D%22m5%2083v6h2v-4h4v-2zm10%200v2h4v4h2v-6zm-5%205v6h6v-6zm-5%205v6h6v-2h-4v-4zm14%200v4h-4v2h6v-6z%22%2F%3E%0A%3Cpath%20d%3D%22m13%20110a7%207%200%200%200%20-7%207%207%207%200%200%200%207%207%207%207%200%200%200%207%20-7%207%207%200%200%200%20-7%20-7zm-1%203h2v2h-2zm0%203h2v5h-2z%22%2F%3E%0A%3Cpath%20d%3D%22m5%2057v6h2v-4h4v-2zm10%200v2h4v4h2v-6zm-10%2010v6h6v-2h-4v-4zm14%200v4h-4v2h6v-6z%22%2F%3E%0A%3Cpath%20d%3D%22m17%2038v2h-8v-2z%22%2F%3E%0A%3Cpath%20d%3D%22m12%209v3h-3v2h3v3h2v-3h3v-2h-3v-3z%22%2F%3E%0A%3Cpath%20d%3D%22m13%20136-6.125%206.125h4.375v7.875h3.5v-7.875h4.375z%22%2F%3E%0A%3Cpath%20d%3D%22m10.428%20173.33v-5.77l5-2.89v5.77zm1-1.73%203-1.73-3.001-1.74z%22%2F%3E%0A%3C%2Fsvg%3E%0A')\r\n}\r\n\r\n.pnlm-container:-moz-full-screen {\r\n  height: 100% !important;\r\n  width: 100% !important;\r\n  position: static !important;\r\n}\r\n.pnlm-container:-webkit-full-screen {\r\n  height: 100% !important;\r\n  width: 100% !important;\r\n  position: static !important;\r\n}\r\n.pnlm-container:-ms-fullscreen {\r\n  height: 100% !important;\r\n  width: 100% !important;\r\n  position: static !important;\r\n}\r\n.pnlm-container:fullscreen {\r\n  height: 100% !important;\r\n  width: 100% !important;\r\n  position: static !important;\r\n}\r\n\r\n.pnlm-render-container {\r\n  cursor: inherit;\r\n\r\n  /* Fix display bug in Safari 7 */\r\n  position: absolute;\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n.pnlm-controls {\r\n  margin-top: 4px;\r\n  background-color: #fff;\r\n  border: 1px solid #999;\r\n  border-color: rgba(0,0,0,0.4);\r\n  border-radius: 3px;\r\n  cursor: pointer;\r\n  z-index: 2;\r\n  /* Fix Safari fullscreen bug */\r\n  -webkit-transform: translateZ(9999px);\r\n  transform: translateZ(9999px);\r\n}\r\n\r\n.pnlm-control:hover {\r\n  background-color: #f8f8f8;\r\n}\r\n\r\n.pnlm-controls-container {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 4px;\r\n  z-index: 1;\r\n}\r\n\r\n.pnlm-zoom-controls {\r\n  width: 26px;\r\n  height: 52px;\r\n}\r\n\r\n.pnlm-zoom-in {\r\n  width: 100%;\r\n  height: 50%;\r\n  position: absolute;\r\n  top: 0;\r\n  border-radius: 3px 3px 0 0;\r\n}\r\n\r\n.pnlm-zoom-out {\r\n  width: 100%;\r\n  height: 50%;\r\n  position: absolute;\r\n  bottom: 0;\r\n  background-position: 0 -26px;\r\n  border-top: 1px solid #ddd;\r\n  border-top-color: rgba(0,0,0,0.10);\r\n  border-radius: 0 0 3px 3px;\r\n}\r\n\r\n.pnlm-fullscreen-toggle-button, .pnlm-orientation-button, .pnlm-hot-spot-debug-indicator {\r\n  width: 26px;\r\n  height: 26px;\r\n}\r\n\r\n.pnlm-hot-spot-debug-indicator {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 26px;\r\n  height: 26px;\r\n  margin: -13px 0 0 -13px;\r\n  background-color: rgba(255, 255, 255, 0.5);\r\n  border-radius: 13px;\r\n  display: none;\r\n}\r\n\r\n.pnlm-orientation-button-inactive {\r\n  background-position: 0 -156px;\r\n}\r\n\r\n.pnlm-orientation-button-active {\r\n  background-position: 0 -182px;\r\n}\r\n\r\n.pnlm-fullscreen-toggle-button-inactive {\r\n  background-position: 0 -52px;\r\n}\r\n\r\n.pnlm-fullscreen-toggle-button-active {\r\n  background-position: 0 -78px;\r\n}\r\n\r\n.pnlm-panorama-info {\r\n  position: absolute;\r\n  bottom: 4px;\r\n  background-color: rgba(0,0,0,0.7);\r\n  border-radius: 0 3px 3px 0;\r\n  padding-right: 10px;\r\n  color: #fff;\r\n  text-align: left;\r\n  display: none;\r\n  z-index: 2;\r\n  /* Fix Safari fullscreen bug */\r\n  -webkit-transform: translateZ(9999px);\r\n  transform: translateZ(9999px);\r\n}\r\n\r\n.pnlm-title-box {\r\n  position: relative;\r\n  font-size: 20px;\r\n  display: table;\r\n  padding-left: 5px;\r\n  margin-bottom: 3px;\r\n}\r\n\r\n.pnlm-author-box {\r\n  position: relative;\r\n  font-size: 12px;\r\n  display: table;\r\n  padding-left: 5px;\r\n}\r\n\r\n.pnlm-load-box {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 200px;\r\n  height: 150px;\r\n  margin: -75px 0 0 -100px;\r\n  background-color: rgba(0,0,0,0.7);\r\n  border-radius: 3px;\r\n  text-align: center;\r\n  font-size: 20px;\r\n  display: none;\r\n  color: #fff;\r\n}\r\n\r\n.pnlm-load-box p {\r\n  margin: 20px 0;\r\n}\r\n\r\n.pnlm-lbox {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 20px;\r\n  height: 20px;\r\n  margin: -10px 0 0 -10px;\r\n  display: none;\r\n}\r\n\r\n.pnlm-loading {\r\n  animation-duration: 1.5s;\r\n  -webkit-animation-duration: 1.5s;\r\n  animation-name: pnlm-mv;\r\n  -webkit-animation-name: pnlm-mv;\r\n  animation-iteration-count: infinite;\r\n  -webkit-animation-iteration-count: infinite;\r\n  animation-timing-function: linear;\r\n  -webkit-animation-timing-function: linear;\r\n  height: 10px;\r\n  width: 10px;\r\n  background-color: #fff;\r\n  position: relative;\r\n}\r\n\r\n@keyframes pnlm-mv {\r\n  from {left:0;top:0;}\r\n  25% {left:10px;top:0;}\r\n  50% {left:10px;top:10px;}\r\n  75% {left:0;top:10px;}\r\n  to {left:0;top:0;}\r\n}\r\n\r\n@-webkit-keyframes pnlm-mv {\r\n  from {left:0;top:0;}\r\n  25% {left:10px;top:0;}\r\n  50% {left:10px;top:10px;}\r\n  75% {left:0;top:10px;}\r\n  to {left:0;top:0;}\r\n}\r\n\r\n.pnlm-load-button {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 200px;\r\n  height: 100px;\r\n  margin: -50px 0 0 -100px;\r\n  background-color: rgba(0,0,0,.7);\r\n  border-radius: 3px;\r\n  text-align: center;\r\n  font-size: 20px;\r\n  display: table;\r\n  color: #fff;\r\n  cursor: pointer;\r\n}\r\n\r\n.pnlm-load-button:hover {\r\n  background-color: rgba(0,0,0,.8);\r\n}\r\n\r\n.pnlm-load-button p {\r\n  display: table-cell;\r\n  vertical-align: middle;\r\n}\r\n\r\n.pnlm-info-box {\r\n  font-size: 15px;\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 200px;\r\n  height: 150px;\r\n  margin: -75px 0 0 -100px;\r\n  background-color: #000;\r\n  border-radius: 3px;\r\n  display: table;\r\n  text-align: center;\r\n  color: #fff;\r\n  table-layout: fixed;\r\n}\r\n\r\n.pnlm-info-box a, .pnlm-author-box a {\r\n  color: #fff;\r\n  word-wrap: break-word;\r\n  overflow-wrap: break-word;\r\n}\r\n\r\n.pnlm-info-box p {\r\n  display: table-cell;\r\n  vertical-align: middle;\r\n  padding: 0 5px 0 5px;\r\n}\r\n\r\n.pnlm-error-msg {\r\n  display: none;\r\n}\r\n\r\n.pnlm-about-msg {\r\n  font-size: 11px;\r\n  line-height: 11px;\r\n  color: #fff;\r\n  padding: 5px 8px 5px 8px;\r\n  background: rgba(0,0,0,0.7);\r\n  border-radius: 3px;\r\n  position: absolute;\r\n  top: 50px;\r\n  left: 50px;\r\n  display: none;\r\n  opacity: 0;\r\n  -moz-transition: opacity .3s ease-in-out;\r\n  -webkit-transition: opacity .3s ease-in-out;\r\n  -o-transition: opacity .3s ease-in-out;\r\n  -ms-transition: opacity .3s ease-in-out;\r\n  transition: opacity .3s ease-in-out;\r\n  z-index: 1;\r\n}\r\n\r\n.pnlm-about-msg a:link, .pnlm-about-msg a:visited {\r\n  color: #fff;\r\n}\r\n\r\n.pnlm-about-msg a:hover, .pnlm-about-msg a:active {\r\n  color: #eee;\r\n}\r\n\r\n.pnlm-hotspot-base {\r\n  position: absolute;\r\n  visibility: hidden;\r\n  cursor: default;\r\n  vertical-align: middle;\r\n  top: 0;\r\n  z-index: 1;\r\n}\r\n.pnlm-hotspot {\r\n  height: 26px;\r\n  width: 26px;\r\n  border-radius: 13px;\r\n}\r\n.pnlm-hotspot:hover {\r\n  background-color: rgba(255,255,255,0.2);\r\n}\r\n.pnlm-hotspot.pnlm-info {\r\n  background-position: 0 -104px;\r\n}\r\n.pnlm-hotspot.pnlm-scene {\r\n  background-position: 0 -130px;\r\n}\r\n\r\ndiv.pnlm-tooltip span {\r\n  visibility: hidden;\r\n  position: absolute;\r\n  border-radius: 3px;\r\n  background-color: rgba(0,0,0,0.7);\r\n  color: #fff;\r\n  text-align: center;\r\n  max-width: 200px;\r\n  padding: 5px 10px;\r\n  margin-left: -220px;\r\n  cursor: default;\r\n}\r\ndiv.pnlm-tooltip:hover span{\r\n  visibility: visible;\r\n}\r\ndiv.pnlm-tooltip:hover span:after {\r\n  content: '';\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-width: 10px;\r\n  border-style: solid;\r\n  border-color: rgba(0,0,0,0.7) transparent transparent transparent;\r\n  bottom: -20px;\r\n  left: -10px;\r\n  margin: 0 50%;\r\n}\r\n\r\n.pnlm-compass {\r\n  position: absolute;\r\n  width: 50px;\r\n  height: 50px;\r\n  right: 4px;\r\n  bottom: 4px;\r\n  border-radius: 25px;\r\n  background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2250%22%20width%3D%2250%22%3E%0A%3Cpath%20d%3D%22m24.5078%206-3.2578%2018h7.5l-3.25781-18h-0.984376zm-3.2578%2020%203.2578%2018h0.9844l3.2578-18h-7.5zm1.19531%200.9941h5.10938l-2.5547%2014.1075-2.5547-14.1075z%22%2F%3E%0A%3C%2Fsvg%3E%0A');\r\n  cursor: default;\r\n  display: none;\r\n}\r\n\r\n.pnlm-world {\r\n  position: absolute;\r\n  left: 50%;\r\n  top: 50%;\r\n}\r\n.pnlm-face {\r\n  position: absolute;\r\n  -webkit-transform-origin: 0 0 0;\r\n  transform-origin: 0 0 0;\r\n}\r\n\r\n.pnlm-dragfix, .pnlm-preview-img {\r\n  position: absolute;\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n.pnlm-preview-img {\r\n  background-size: cover;\r\n  background-position: center;\r\n}\r\n\r\n.pnlm-lbar {\r\n  width: 150px;\r\n  margin: 0 auto;\r\n  border: #fff 1px solid;\r\n  height: 6px;\r\n}\r\n\r\n.pnlm-lbar-fill {\r\n  background: #fff;\r\n  height: 100%;\r\n  width: 0;\r\n}\r\n\r\n.pnlm-lmsg {\r\n  font-size: 12px;\r\n}\r\n\r\n.pnlm-fade-img {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n}\r\n\r\n.pnlm-pointer {\r\n  cursor: pointer;\r\n}\r\n";
 styleInject(css_248z);
 
-let myPannellum = null;
+var myPannellum = null;
 
-class ReactPannellum extends React.Component {
-  initPanalleum() {
-    const {
-      sceneId,
-      config,
-      imageSource,
-      autoRotate,
-      autoRotateSpeep
-    } = this.props;
-    myPannellum = pannellum.viewer(this.props.id, {
-      default: {
-        firstScene: sceneId
-      },
-      scenes: {
-        [sceneId]: { ...config,
-          imageSource
-        }
+var ReactPannellum = /*#__PURE__*/function (_React$Component) {
+  _inherits(ReactPannellum, _React$Component);
+
+  var _super = _createSuper(ReactPannellum);
+
+  function ReactPannellum() {
+    _classCallCheck(this, ReactPannellum);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(ReactPannellum, [{
+    key: "initPanalleum",
+    value: function initPanalleum() {
+      var _this$props = this.props,
+        sceneId = _this$props.sceneId,
+        config = _this$props.config,
+        imageSource = _this$props.imageSource,
+        autoRotate = _this$props.autoRotate,
+        autoRotateSpeep = _this$props.autoRotateSpeep;
+      myPannellum = pannellum.viewer(this.props.id, {
+        "default": {
+          firstScene: sceneId
+        },
+        scenes: _defineProperty({}, sceneId, _objectSpread2(_objectSpread2({}, config), {}, {
+          imageSource: imageSource
+        }))
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this = this;
+
+      if (this.props.imageSource) {
+        this.initPanalleum();
+        this.props.onPanoramaLoaded && myPannellum.on("load", function () {
+          return _this.props.onPanoramaLoaded();
+        });
       }
-    });
-  }
-
-  componentDidMount() {
-    if (this.props.imageSource) {
-      this.initPanalleum();
-      this.props.onPanoramaLoaded && myPannellum.on("load", () => this.props.onPanoramaLoaded());
     }
-  }
-
-  componentWillUnmount() {
-    myPannellum && this.props.onPanoramaLoaded && myPannellum.off("load", this.props.onPanoramaLoaded);
-  }
-
-  static isLoaded() {
-    return myPannellum && myPannellum.isLoaded();
-  }
-
-  static getPitch() {
-    return myPannellum && myPannellum.getPitch();
-  }
-
-  static setPitch(pitch, animated = 1000, callback, callbackArgs) {
-    if (myPannellum) {
-      myPannellum.setPitch(pitch, animated, callback, callbackArgs);
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      myPannellum && this.props.onPanoramaLoaded && myPannellum.off("load", this.props.onPanoramaLoaded);
     }
-  }
-
-  static getPitchBounds() {
-    return myPannellum && myPannellum.getPitchBounds();
-  }
-
-  static setPitchBounds(bounds) {
-    if (myPannellum) {
-      myPannellum.setPitchBounds(bounds);
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props2 = this.props,
+        style = _this$props2.style,
+        className = _this$props2.className,
+        id = _this$props2.id;
+      return /*#__PURE__*/React.createElement("div", {
+        id: id,
+        style: style,
+        className: className
+      });
     }
-  }
-
-  static getYaw() {
-    return myPannellum && myPannellum.getYaw();
-  }
-
-  static setYaw(yaw, animated = 1000, callback, callbackArgs) {
-    if (myPannellum) {
-      myPannellum.setYaw(yaw, animated, callback, callbackArgs);
+  }], [{
+    key: "isLoaded",
+    value: function isLoaded() {
+      return myPannellum && myPannellum.isLoaded();
     }
-  }
-
-  static getYawBounds() {
-    return myPannellum && myPannellum.getYawBounds();
-  }
-
-  static setYawBounds(bounds) {
-    constants.myPromise(myPannellum, {
-      bounds
-    }).then(({
-      bounds
-    }) => {
-      myPannellum.setYawBounds(bounds);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-
-  static getHfov() {
-    return myPannellum && myPannellum.getHfov();
-  }
-
-  static setHfov(hfov, animated = 1000, callback, callbackArgs) {
-    if (myPannellum) {
-      myPannellum.setHfov(hfov, animated, callback, callbackArgs);
+  }, {
+    key: "getPitch",
+    value: function getPitch() {
+      return myPannellum && myPannellum.getPitch();
     }
-  }
+  }, {
+    key: "setPitch",
+    value: function setPitch(pitch) {
+      var animated = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
+      var callback = arguments.length > 2 ? arguments[2] : undefined;
+      var callbackArgs = arguments.length > 3 ? arguments[3] : undefined;
 
-  static getHfovBounds() {
-    return myPannellum && myPannellum.getHfovBounds();
-  }
-
-  static setHfovBounds(bounds) {
-    constants.myPromise(myPannellum, {
-      bounds
-    }).then(({
-      bounds
-    }) => {
-      myPannellum.setHfovBounds(bounds);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-
-  static lookAt(pitch, yaw, hfov, animated = 1000, callback, callbackArgs) {
-    if (myPannellum) {
-      myPannellum.lookAt(pitch, yaw, hfov, animated, callback, callbackArgs);
+      if (myPannellum) {
+        myPannellum.setPitch(pitch, animated, callback, callbackArgs);
+      }
     }
-  }
-
-  static getNorthOffset() {
-    return myPannellum && myPannellum.getNorthOffset();
-  }
-
-  static setNorthOffset(heading) {
-    constants.myPromise(myPannellum, {
-      heading
-    }).then(({
-      heading
-    }) => {
-      myPannellum.setNorthOffset(heading);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-
-  static getHorizonRoll() {
-    return myPannellum && myPannellum.getHorizonRoll();
-  }
-
-  static setHorizonRoll(roll) {
-    constants.myPromise(myPannellum, {
-      roll
-    }).then(({
-      roll
-    }) => {
-      myPannellum.setHorizonRoll(roll);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-
-  static getHorizonPitch() {
-    return myPannellum && myPannellum.getHorizonPitch();
-  }
-
-  static setHorizonPitch(pitch) {
-    constants.myPromise(myPannellum, {
-      pitch
-    }).then(({
-      pitch
-    }) => {
-      myPannellum.setHorizonPitch(pitch);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-
-  static startAutoRotate(speed, pitch) {
-    constants.myPromise(myPannellum, {
-      pitch
-    }).then(({
-      pitch
-    }) => {
-      myPannellum.startAutoRotate(speed, pitch);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-
-  static stopAutoRotate() {
-    if (myPannellum) {
-      myPannellum.stopAutoRotate();
+  }, {
+    key: "getPitchBounds",
+    value: function getPitchBounds() {
+      return myPannellum && myPannellum.getPitchBounds();
     }
-  }
+  }, {
+    key: "setPitchBounds",
+    value: function setPitchBounds(bounds) {
+      if (myPannellum) {
+        myPannellum.setPitchBounds(bounds);
+      }
+    }
+  }, {
+    key: "getYaw",
+    value: function getYaw() {
+      return myPannellum && myPannellum.getYaw();
+    }
+  }, {
+    key: "setYaw",
+    value: function setYaw(yaw) {
+      var animated = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
+      var callback = arguments.length > 2 ? arguments[2] : undefined;
+      var callbackArgs = arguments.length > 3 ? arguments[3] : undefined;
 
-  static mouseEventToCoords(event) {
-    return myPannellum && myPannellum.mouseEventToCoords(event);
-  }
-
-  static addScene(sceneId, config, callback) {
-    if (sceneId && sceneId !== "" && config && config !== {}) {
+      if (myPannellum) {
+        myPannellum.setYaw(yaw, animated, callback, callbackArgs);
+      }
+    }
+  }, {
+    key: "getYawBounds",
+    value: function getYawBounds() {
+      return myPannellum && myPannellum.getYawBounds();
+    }
+  }, {
+    key: "setYawBounds",
+    value: function setYawBounds(bounds) {
       constants.myPromise(myPannellum, {
-        sceneId,
-        config,
-        callback
-      }).then(({
-        sceneId,
-        config,
-        callback
-      }) => {
-        myPannellum.addScene(sceneId, config);
-        callback && callback();
-      }).catch(err => {
+        bounds: bounds
+      }).then(function (_ref) {
+        var bounds = _ref.bounds;
+        myPannellum.setYawBounds(bounds);
+      })["catch"](function (err) {
         console.log(err);
       });
-    } else {
-      console.log("sceneId cannot be empty and config.imageSource cannot be empty!!");
     }
-  }
+  }, {
+    key: "getHfov",
+    value: function getHfov() {
+      return myPannellum && myPannellum.getHfov();
+    }
+  }, {
+    key: "setHfov",
+    value: function setHfov(hfov) {
+      var animated = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
+      var callback = arguments.length > 2 ? arguments[2] : undefined;
+      var callbackArgs = arguments.length > 3 ? arguments[3] : undefined;
 
-  static getCurrentScene() {
-    return myPannellum && myPannellum.getConfig().scene;
-  }
-
-  static getAllScenes() {
-    return myPannellum && myPannellum.getAllScenes();
-  }
-
-  static removeScene(sceneId, callback) {
-    if (sceneId && sceneId !== "") {
+      if (myPannellum) {
+        myPannellum.setHfov(hfov, animated, callback, callbackArgs);
+      }
+    }
+  }, {
+    key: "getHfovBounds",
+    value: function getHfovBounds() {
+      return myPannellum && myPannellum.getHfovBounds();
+    }
+  }, {
+    key: "setHfovBounds",
+    value: function setHfovBounds(bounds) {
       constants.myPromise(myPannellum, {
-        sceneId
-      }).then(({
-        sceneId
-      }) => {
-        myPannellum.removeScene(sceneId);
-        callback && callback();
-      }).catch(err => {
+        bounds: bounds
+      }).then(function (_ref2) {
+        var bounds = _ref2.bounds;
+        myPannellum.setHfovBounds(bounds);
+      })["catch"](function (err) {
         console.log(err);
       });
-    } else {
-      console.log("sceneId cannot be empty");
     }
-  }
+  }, {
+    key: "lookAt",
+    value: function lookAt(pitch, yaw, hfov) {
+      var animated = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1000;
+      var callback = arguments.length > 4 ? arguments[4] : undefined;
+      var callbackArgs = arguments.length > 5 ? arguments[5] : undefined;
 
-  static loadScene(sceneId, targetPitch, targetYaw, targetHfov, fadeDone) {
-    if (myPannellum && sceneId && sceneId !== "") {
-      myPannellum.loadScene(sceneId, targetPitch, targetYaw, targetHfov, fadeDone);
+      if (myPannellum) {
+        myPannellum.lookAt(pitch, yaw, hfov, animated, callback, callbackArgs);
+      }
     }
-  }
-
-  static toggleFullscreen() {
-    return myPannellum && myPannellum.toggleFullscreen();
-  }
-
-  static getConfig() {
-    return myPannellum && myPannellum.getConfig();
-  }
-
-  static getContainer() {
-    return myPannellum && myPannellum.getContainer();
-  }
-
-  static addHotSpot(hotspot, sceneId) {
-    if (hotspot !== {}) {
+  }, {
+    key: "getNorthOffset",
+    value: function getNorthOffset() {
+      return myPannellum && myPannellum.getNorthOffset();
+    }
+  }, {
+    key: "setNorthOffset",
+    value: function setNorthOffset(heading) {
       constants.myPromise(myPannellum, {
-        hotspot,
-        sceneId
-      }).then(({
-        hotspot,
-        sceneId
-      }) => {
-        myPannellum.addHotSpot(hotspot, sceneId);
-      }).catch(err => {
+        heading: heading
+      }).then(function (_ref3) {
+        var heading = _ref3.heading;
+        myPannellum.setNorthOffset(heading);
+      })["catch"](function (err) {
         console.log(err);
       });
-    } else {
-      console.log("hotspot cannot be empty, please check hotspot elements needed in document: config props `hotSpots`.");
     }
-  }
-
-  static removeHotSpot(hotSpotId, sceneId) {
-    if (hotSpotId !== "") {
+  }, {
+    key: "getHorizonRoll",
+    value: function getHorizonRoll() {
+      return myPannellum && myPannellum.getHorizonRoll();
+    }
+  }, {
+    key: "setHorizonRoll",
+    value: function setHorizonRoll(roll) {
       constants.myPromise(myPannellum, {
-        hotSpotId,
-        sceneId
-      }).then(({
-        hotSpotId,
-        sceneId
-      }) => {
-        myPannellum.removeHotSpot(hotSpotId, sceneId);
-      }).catch(err => {
+        roll: roll
+      }).then(function (_ref4) {
+        var roll = _ref4.roll;
+        myPannellum.setHorizonRoll(roll);
+      })["catch"](function (err) {
         console.log(err);
       });
-    } else {
-      console.log("hotspotId cannot be empty!!");
     }
-  }
+  }, {
+    key: "getHorizonPitch",
+    value: function getHorizonPitch() {
+      return myPannellum && myPannellum.getHorizonPitch();
+    }
+  }, {
+    key: "setHorizonPitch",
+    value: function setHorizonPitch(pitch) {
+      constants.myPromise(myPannellum, {
+        pitch: pitch
+      }).then(function (_ref5) {
+        var pitch = _ref5.pitch;
+        myPannellum.setHorizonPitch(pitch);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "startAutoRotate",
+    value: function startAutoRotate(speed, pitch) {
+      constants.myPromise(myPannellum, {
+        pitch: pitch
+      }).then(function (_ref6) {
+        var pitch = _ref6.pitch;
+        myPannellum.startAutoRotate(speed, pitch);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "stopAutoRotate",
+    value: function stopAutoRotate() {
+      if (myPannellum) {
+        myPannellum.stopAutoRotate();
+      }
+    }
+  }, {
+    key: "mouseEventToCoords",
+    value: function mouseEventToCoords(event) {
+      return myPannellum && myPannellum.mouseEventToCoords(event);
+    }
+  }, {
+    key: "addScene",
+    value: function addScene(sceneId, config, callback) {
+      if (sceneId && sceneId !== "" && config && config !== {}) {
+        constants.myPromise(myPannellum, {
+          sceneId: sceneId,
+          config: config,
+          callback: callback
+        }).then(function (_ref7) {
+          var sceneId = _ref7.sceneId,
+            config = _ref7.config,
+            callback = _ref7.callback;
+          myPannellum.addScene(sceneId, config);
+          callback && callback();
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        console.log("sceneId cannot be empty and config.imageSource cannot be empty!!");
+      }
+    }
+  }, {
+    key: "getCurrentScene",
+    value: function getCurrentScene() {
+      return myPannellum && myPannellum.getConfig().scene;
+    }
+  }, {
+    key: "getAllScenes",
+    value: function getAllScenes() {
+      return myPannellum && myPannellum.getAllScenes();
+    }
+  }, {
+    key: "removeScene",
+    value: function removeScene(sceneId, callback) {
+      if (sceneId && sceneId !== "") {
+        constants.myPromise(myPannellum, {
+          sceneId: sceneId
+        }).then(function (_ref8) {
+          var sceneId = _ref8.sceneId;
+          myPannellum.removeScene(sceneId);
+          callback && callback();
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        console.log("sceneId cannot be empty");
+      }
+    }
+  }, {
+    key: "loadScene",
+    value: function loadScene(sceneId, targetPitch, targetYaw, targetHfov, fadeDone) {
+      if (myPannellum && sceneId && sceneId !== "") {
+        myPannellum.loadScene(sceneId, targetPitch, targetYaw, targetHfov, fadeDone);
+      }
+    }
+  }, {
+    key: "toggleFullscreen",
+    value: function toggleFullscreen() {
+      return myPannellum && myPannellum.toggleFullscreen();
+    }
+  }, {
+    key: "getConfig",
+    value: function getConfig() {
+      return myPannellum && myPannellum.getConfig();
+    }
+  }, {
+    key: "getContainer",
+    value: function getContainer() {
+      return myPannellum && myPannellum.getContainer();
+    }
+  }, {
+    key: "addHotSpot",
+    value: function addHotSpot(hotspot, sceneId) {
+      if (hotspot !== {}) {
+        constants.myPromise(myPannellum, {
+          hotspot: hotspot,
+          sceneId: sceneId
+        }).then(function (_ref9) {
+          var hotspot = _ref9.hotspot,
+            sceneId = _ref9.sceneId;
+          myPannellum.addHotSpot(hotspot, sceneId);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        console.log("hotspot cannot be empty, please check hotspot elements needed in document: config props `hotSpots`.");
+      }
+    }
+  }, {
+    key: "removeHotSpot",
+    value: function removeHotSpot(hotSpotId, sceneId) {
+      if (hotSpotId !== "") {
+        constants.myPromise(myPannellum, {
+          hotSpotId: hotSpotId,
+          sceneId: sceneId
+        }).then(function (_ref10) {
+          var hotSpotId = _ref10.hotSpotId,
+            sceneId = _ref10.sceneId;
+          myPannellum.removeHotSpot(hotSpotId, sceneId);
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        console.log("hotspotId cannot be empty!!");
+      }
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      return myPannellum && myPannellum.destroy();
+    }
+  }]);
 
-  static destroy() {
-    return myPannellum && myPannellum.destroy();
-  }
-
-  render() {
-    const {
-      style,
-      className,
-      id
-    } = this.props;
-    return /*#__PURE__*/React.createElement("div", {
-      id: id,
-      style: style,
-      className: className
-    });
-  }
-
-}
+  return ReactPannellum;
+}(React.Component);
 
 ReactPannellum.propTypes = {
   id: PropTypes.string.isRequired,
@@ -4892,16 +5114,14 @@ ReactPannellum.propTypes = {
 };
 ReactPannellum.defaultProps = {
   className: "",
-  style: { ...constants.style
-  },
+  style: _objectSpread2({}, constants.style),
   config: {
     autoLoad: false,
     autoRotate: 0,
     autoRotateInactivityDelay: 0,
     autoRotateStopDelay: 0,
     preview: "",
-    uiText: { ...constants.uiText
-    },
+    uiText: _objectSpread2({}, constants.uiText),
     showZoomCtrl: true,
     keyboardZoom: true,
     mouseZoom: true,
@@ -4924,40 +5144,40 @@ ReactPannellum.defaultProps = {
   }
 };
 
-const addScene = ReactPannellum.addScene;
-const getCurrentScene = ReactPannellum.getCurrentScene;
-const getAllScenes = ReactPannellum.getAllScenes;
-const removeScene = ReactPannellum.removeScene;
-const loadScene = ReactPannellum.loadScene;
-const isLoaded = ReactPannellum.isLoaded;
-const getPitch = ReactPannellum.getPitch;
-const setPitch = ReactPannellum.setPitch;
-const getPitchBounds = ReactPannellum.getPitchBounds;
-const setPitchBounds = ReactPannellum.setPitchBounds;
-const getYaw = ReactPannellum.getYaw;
-const setYaw = ReactPannellum.setYaw;
-const getYawBounds = ReactPannellum.getYawBounds;
-const setYawBounds = ReactPannellum.setYawBounds;
-const getHfov = ReactPannellum.getHfov;
-const setHfov = ReactPannellum.setHfov;
-const getHfovBounds = ReactPannellum.getHfovBounds;
-const setHfovBounds = ReactPannellum.setHfovBounds;
-const lookAt = ReactPannellum.lookAt;
-const getNorthOffset = ReactPannellum.getNorthOffset;
-const setNorthOffset = ReactPannellum.setNorthOffset;
-const getHorizonRoll = ReactPannellum.getHorizonRoll;
-const setHorizonRoll = ReactPannellum.setHorizonRoll;
-const getHorizonPitch = ReactPannellum.getHorizonPitch;
-const setHorizonPitch = ReactPannellum.setHorizonPitch;
-const startAutoRotate = ReactPannellum.startAutoRotate;
-const stopAutoRotate = ReactPannellum.stopAutoRotate;
-const mouseEventToCoords = ReactPannellum.mouseEventToCoords;
-const toggleFullscreen = ReactPannellum.toggleFullscreen;
-const getConfig = ReactPannellum.getConfig;
-const getContainer = ReactPannellum.getContainer;
-const addHotSpot = ReactPannellum.addHotSpot;
-const removeHotSpot = ReactPannellum.removeHotSpot;
-const destroy = ReactPannellum.destroy;
+var addScene = ReactPannellum.addScene;
+var getCurrentScene = ReactPannellum.getCurrentScene;
+var getAllScenes = ReactPannellum.getAllScenes;
+var removeScene = ReactPannellum.removeScene;
+var loadScene = ReactPannellum.loadScene;
+var isLoaded = ReactPannellum.isLoaded;
+var getPitch = ReactPannellum.getPitch;
+var setPitch = ReactPannellum.setPitch;
+var getPitchBounds = ReactPannellum.getPitchBounds;
+var setPitchBounds = ReactPannellum.setPitchBounds;
+var getYaw = ReactPannellum.getYaw;
+var setYaw = ReactPannellum.setYaw;
+var getYawBounds = ReactPannellum.getYawBounds;
+var setYawBounds = ReactPannellum.setYawBounds;
+var getHfov = ReactPannellum.getHfov;
+var setHfov = ReactPannellum.setHfov;
+var getHfovBounds = ReactPannellum.getHfovBounds;
+var setHfovBounds = ReactPannellum.setHfovBounds;
+var lookAt = ReactPannellum.lookAt;
+var getNorthOffset = ReactPannellum.getNorthOffset;
+var setNorthOffset = ReactPannellum.setNorthOffset;
+var getHorizonRoll = ReactPannellum.getHorizonRoll;
+var setHorizonRoll = ReactPannellum.setHorizonRoll;
+var getHorizonPitch = ReactPannellum.getHorizonPitch;
+var setHorizonPitch = ReactPannellum.setHorizonPitch;
+var startAutoRotate = ReactPannellum.startAutoRotate;
+var stopAutoRotate = ReactPannellum.stopAutoRotate;
+var mouseEventToCoords = ReactPannellum.mouseEventToCoords;
+var toggleFullscreen = ReactPannellum.toggleFullscreen;
+var getConfig = ReactPannellum.getConfig;
+var getContainer = ReactPannellum.getContainer;
+var addHotSpot = ReactPannellum.addHotSpot;
+var removeHotSpot = ReactPannellum.removeHotSpot;
+var destroy = ReactPannellum.destroy;
 
 export default ReactPannellum;
-export { addHotSpot, addScene, destroy, getAllScenes, getConfig, getContainer, getCurrentScene, getHfov, getHfovBounds, getHorizonPitch, getHorizonRoll, getNorthOffset, getPitch, getPitchBounds, getYaw, getYawBounds, isLoaded, loadScene, lookAt, mouseEventToCoords, removeHotSpot, removeScene, setHfov, setHfovBounds, setHorizonPitch, setHorizonRoll, setNorthOffset, setPitch, setPitchBounds, setYaw, setYawBounds, startAutoRotate, stopAutoRotate, toggleFullscreen };
+export { addHotSpot, addScene, getAllScenes, getConfig, getContainer, destroy, getCurrentScene, getHfov, getHfovBounds, getHorizonPitch, getHorizonRoll, getNorthOffset, getPitch, getPitchBounds, getYaw, getYawBounds, isLoaded, loadScene, lookAt, mouseEventToCoords, removeHotSpot, removeScene, setHfov, setHfovBounds, setHorizonPitch, setHorizonRoll, setNorthOffset, setPitch, setPitchBounds, setYaw, setYawBounds, startAutoRotate, stopAutoRotate, toggleFullscreen };
